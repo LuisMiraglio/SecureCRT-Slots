@@ -2,12 +2,9 @@
 *.ini
 *.cfg
 *.log
+untitled.key
 
 # Archivos temporales del sistema
 Thumbs.db
 .DS_Store
 
-# Archivos Python compilados
-__pycache__/
-*.py[cod]
-*$py.class
