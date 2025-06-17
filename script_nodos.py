@@ -86,7 +86,16 @@ def main():
     # Mostrar mensaje al usuario
     crt.Dialog.MessageBox("Iniciando escaneo de 64 OLTs. Esto puede tomar unos momentos...")
 
-    # Ejecutar el comando "onu status" para las OLTs del slot seleccionado
+    # Convertir el formato del slot para el comando "onu show" (de "X-Y" a "X/Y")
+    partes_slot = slot.split("-")
+    formato_show = "{}/{}".format(partes_slot[0], partes_slot[1])
+    
+    # Ejecutar primero el comando "onu show" una sola vez para el slot completo
+    comando_show = "onu show {}".format(formato_show)
+    crt.Screen.Send(comando_show + "\r")
+    time.sleep(3)  # Damos más tiempo para que este comando complete
+    
+    # Ejecutar el comando "onu status" para cada una de las OLTs del slot
     total_olts = len(slots[slot])
     for i, olt in enumerate(slots[slot]):
         comando = "onu status {}".format(olt)
